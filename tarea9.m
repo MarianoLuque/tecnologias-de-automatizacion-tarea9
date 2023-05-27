@@ -8,7 +8,7 @@ a2 = 7;
 a3 = 3;
 
 %%Parametros
-q = [q1+90 q2 q3];
+q = [q1 q2 q3];
 d = [d1 0 0];
 a = [0 a2 a3];
 alfa = [-90 0 0] * pi1 / 180 ;
@@ -36,3 +36,30 @@ Otro = IA01 * T1 * IA23;
 
 %%Solucion como lo hace el profe
 p0TCP = A01 * A12 * [A23(1,4), A23(2,4), A23(3,4), A23(4,4)]';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
