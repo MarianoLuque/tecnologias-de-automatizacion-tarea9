@@ -13,22 +13,17 @@ bot.teach([0, 0, 0], 'workspace', ws, 'noname');
 %bot.plot();
 
 %bucle para cambiar la posicion manualmente
-h_sphere = [];
 while(true)
-    P = input('Introduzca un vector de posicion deseada [x,y,z]: ');
-    % Borra la esfera anterior si existe
-    if ~isempty(h_sphere)
-        delete(h_sphere);
+    
+    t = 0:0.1:2*pi;
+    x = 5+sin(t)*2;
+    y = 5+cos(t)*2;
+    for i=1:63
+        p = [x(i), y(i), 15];
+        plot_sphere(p, 0.5, 'y');
+        k = invkin(p(1), p(2), p(3));
+        bot.plot([k(1), k(2), k(3)], 'workspace', ws, 'noname')
     end
-    %imprimimos una esfera en el punto con grosor 2 y color amarillo
-    h_sphere = plot_sphere(P, 2, 'y');
-    input('Presiona una tecla para mover al robot');
-    k = invkin(P(1), P(2), P(3));
-    if isempty(k)
-        continue;
-    end
-    bot.plot(k, 'workspace', ws, 'noname')
-    dickin(k);
 end
 
 function P = dickin(q)
@@ -50,22 +45,12 @@ function k = invkin(x, y, z)
         q3 = atan2(-sqrt(1-cosenoQ3^2), cosenoQ3);
     catch
         % Manejo de la excepción cuando cosenoQ3 es mayor que 1
-        disp('El punto no es alcanzable. Ajusta los límites del espacio de trabajo.');
+        disp('El punto no es alcanzable. Ajusta el punto a los límites del espacio de trabajo.');
         k = [];
         return;
     end
     q2 = atan2(z-d1, sqrt(x^2+y^2)) - atan2(a3*sin(q3),a2+a3*cos(q3));
     
-    q = [q1, q2, q3];
-    k = q;
-    fprintf('Los valores de los angulos en radianes son: [%.4f, %.4f, %.4f]\n', k(1), k(2), k(3));
-    fprintf('Los valores de los angulos en grados son: [%.4f, %.4f, %.4f]\n', rad2deg(q(1)), rad2deg(q(2)), rad2deg(q(3)));
+    k = [q1, q2, q3];
 end
-
-
-
-
-
-
-
 
